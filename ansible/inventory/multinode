@@ -247,6 +247,9 @@ neutron
 [neutron-lbaas-agent:children]
 neutron
 
+[f5-openstack-agent:children]
+control
+
 [neutron-metadata-agent:children]
 neutron
 

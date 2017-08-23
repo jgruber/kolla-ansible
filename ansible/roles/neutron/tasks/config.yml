@@ -46,6 +46,7 @@
       - "neutron-openvswitch-agent"
       - "neutron-server"
       - "neutron-lbaas-agent"
+      - "f5-openstack-agent"
       - "neutron-vpnaas-agent"
   merge_configs:
     sources:

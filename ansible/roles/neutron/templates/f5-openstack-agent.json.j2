@@ -1,0 +1,29 @@
+{
+    "command": "/usr/bin/f5-oslbaasv2-agent --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/f5-openstack-agent.ini --log-file /var/log/kolla/neutron/f5-openstack-agent.log",
+    "config_files": [
+        {
+            "source": "{{ container_config_directory }}/neutron.conf",
+            "dest": "/etc/neutron/neutron.conf",
+            "owner": "neutron",
+            "perm": "0600"
+        },
+        {
+            "source": "{{ container_config_directory }}/f5-openstack-agent.ini",
+            "dest": "/etc/neutron/f5-openstack-agent.ini",
+            "owner": "neutron",
+            "perm": "0600"
+        }
+    ],
+    "permissions": [
+        {
+            "path": "/var/log/kolla/neutron",
+            "owner": "neutron:neutron",
+            "recurse": true
+        },
+        {
+            "path": "/var/lib/neutron/kolla",
+            "owner": "neutron:neutron",
+            "recurse": true
+        }
+    ]
+}

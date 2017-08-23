@@ -260,6 +260,7 @@
     - neutron-dhcp-agent
     - neutron-l3-agent
     - neutron-lbaas-agent
+    - f5-openstack-agent
     - neutron-metadata-agent
     - neutron-vpnaas-agent
     - compute

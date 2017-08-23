@@ -177,6 +177,19 @@ neutron_services:
       - "/run:/run:shared"
       - "neutron_metadata_socket:/var/lib/neutron/kolla/"
       - "kolla_logs:/var/log/kolla/"
+  f5-openstack-agent:
+    container_name: "f5_openstack_agent"
+    image: "{{ f5_openstack_agent_image_full }}"
+    privileged: True
+    enabled: "{{ enable_f5_lbaas | bool }}"
+    group: "f5-openstack-agent"
+    host_in_groups: "{{ True if orchestration_engine == 'KUBERNETES' else inventory_hostname in groups['f5-openstack-agent'] }}"
+    volumes:
+      - "{{ node_config_directory }}/f5-openstack-agent/:{{ container_config_directory }}/:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/run:/run:shared"
+      - "neutron_metadata_socket:/var/lib/neutron/kolla/"
+      - "kolla_logs:/var/log/kolla/"
   neutron-metadata-agent:
     container_name: "neutron_metadata_agent"
     image: "{{ neutron_metadata_agent_image_full }}"
@@ -232,6 +245,10 @@ neutron_l3_agent_image_full: "{{ neutron_l3_agent_image }}:{{ neutron_l3_agent_t
 neutron_lbaas_agent_image: "{{ docker_registry ~ '/' if docker_registry else '' }}{{ docker_namespace }}/{{ kolla_base_distro }}-{{ kolla_install_type }}-neutron-lbaas-agent"
 neutron_lbaas_agent_tag: "{{ openstack_release }}"
 neutron_lbaas_agent_image_full: "{{ neutron_lbaas_agent_image }}:{{ neutron_lbaas_agent_tag }}"
+
+f5_openstack_agent_image: "{{ docker_registry ~ '/' if docker_registry else '' }}{{ docker_namespace }}/{{ kolla_base_distro }}-{{ kolla_install_type }}-f5-openstack-agent"
+f5_openstack_agent_tag: "{{ openstack_release }}"
+f5_openstack_agent_image_full: "{{ f5_openstack_agent_image }}:{{ f5_openstack_agent_tag }}"
 
 neutron_linuxbridge_agent_image: "{{ docker_registry ~ '/' if docker_registry else '' }}{{ docker_namespace }}/{{ kolla_base_distro }}-{{ kolla_install_type }}-neutron-linuxbridge-agent"
 neutron_linuxbridge_agent_tag: "{{ openstack_release }}"
