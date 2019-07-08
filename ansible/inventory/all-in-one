@@ -116,6 +116,9 @@ manila-share
 [opendaylight:children]
 network
 
+[f5-openstack-agent:children]
+control
+
 [cinder:children]
 control
 

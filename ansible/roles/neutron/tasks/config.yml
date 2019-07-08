@@ -52,6 +52,7 @@
       - "neutron-openvswitch-agent-xenapi"
       - "neutron-server"
       - "neutron-lbaas-agent"
+      - "f5-openstack-agent"
       - "neutron-bgp-dragent"
       - "neutron-sriov-agent"
   merge_configs:
@@ -297,6 +298,22 @@
   notify:
     - "Restart {{ service_name }} container"
 
+- name: Copying over f5-openstack-agent.ini
+  vars:
+    service_name: "f5-openstack-agent"
+    f5_openstack_agent: "{{ neutron_services['f5-openstack-agent'] }}"
+  merge_configs:
+    sources:
+      - "{{ role_path }}/templates/f5-openstack-agent.ini.j2"
+      - "{{ node_custom_config }}/neutron/f5-openstack-agent.ini"
+    dest: "{{ node_config_directory }}/{{ service_name }}/f5-openstack-agent.ini"
+  register: f5_openstack_agent_ini
+  when:
+    - f5_openstack_agent.enabled | bool
+    - f5_openstack_agent.host_in_groups | bool
+  notify:
+    - "Restart {{ service_name }} container"
+
 - name: Copying over bgp_dragent.ini
   become: true
   vars:
@@ -350,6 +367,7 @@
       - "neutron-openvswitch-agent-xenapi"
       - "neutron-server"
       - "neutron-lbaas-agent"
+      - "f5-openstack-agent"
       - "neutron-bgp-dragent"
       - "neutron-sriov-agent"
   template:

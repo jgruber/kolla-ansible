@@ -40,6 +40,28 @@
   run_once: True
   delegate_to: "{{ groups[neutron_lbaas_agent.group][0] }}"
 
+- name: Running F5 OpenStack agent bootstrap container
+  vars:
+    f5_openstack_agent: "{{ neutron_services['f5-openstack-agent'] }}"
+  kolla_docker:
+    action: "start_container"
+    common_options: "{{ docker_common_options }}"
+    detach: False
+    environment:
+      KOLLA_BOOTSTRAP:
+      KOLLA_CONFIG_STRATEGY: "{{ config_strategy }}"
+    image: "{{ f5_openstack_agent.image }}"
+    labels:
+      BOOTSTRAP:
+    name: "bootstrap_f5_openstack_agent"
+    restart_policy: "never"
+    volumes: "{{ f5_openstack_agent.volumes }}"
+  when:
+    - f5_openstack_agent.enabled | bool
+    - f5_openstack_agent.host_in_groups | bool
+  run_once: True
+  delegate_to: "{{ groups[f5_openstack_agent.group][0] }}"
+
 - name: Running Neutron sfc bootstrap container
   vars:
     neutron_server: "{{ neutron_services['neutron-server'] }}"

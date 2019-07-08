@@ -713,6 +713,47 @@ ceph_cache_rule: "cache host firstn"
 ceph_pool_pg_num: 128
 ceph_pool_pgp_num: 128
 
+#######################################
+# F5 OpenStack Options
+#######################################
+enable_f5_lbaas: "False"
+f5_openstack_agent_restart_policy: "never"
+f5_openstack_agent_debug : "True"
+f5_openstack_agent_periodic_interval : "10"
+f5_openstack_agent_service_resync_interval : "500"
+f5_openstack_agent_environment_prefix : "Project"
+f5_openstack_agent_agent_id : "None"
+f5_openstack_agent_f5_ha_type : "standalone"
+f5_openstack_agent_f5_external_physical_mappings : "default:1.1:True"
+f5_openstack_agent_vlan_binding_driver : "f5.oslbaasv1agent.drivers.bigip.vlan_binding.NullBinding"
+f5_openstack_agent_f5_vtep_folder : "Common"
+f5_openstack_agent_f5_vtep_selfip_name : "vtep"
+f5_openstack_agent_advertised_tunnel_types : "vlan"
+f5_openstack_agent_f5_populate_static_arp : "False"
+f5_openstack_agent_l2_population : "True"
+f5_openstack_agent_f5_global_routed_mode : "False" 
+f5_openstack_agent_use_namespaces : "True"
+f5_openstack_agent_max_namespaces_per_tenant : "1"
+f5_openstack_agent_f5_route_domain_strictness : "False"
+f5_openstack_agent_f5_snat_mode : "True"
+f5_openstack_agent_f5_snat_addresses_per_subnet : "1"
+f5_openstack_agent_f5_common_networks: "False"
+f5_openstack_agent_f5_common_external_networks : "True"
+f5_openstack_agent_l3_binding_driver : "f5_openstack_agent.lbaasv2.drivers.bigip.l3_binding.AllowedAddressPairs"
+f5_openstack_agent_f5_bigip_lbaas_device_driver : "f5_openstack_agent.lbaasv2.drivers.bigip.icontrol_driver.iControlDriver"
+f5_openstack_agent_icontrol_hostname : "10.190.7.232"
+f5_openstack_agent_icontrol_username : "admin"
+f5_openstack_agent_icontrol_password : "admin"
+f5_openstack_agent_cert_manager : "f5_openstack_agent.lbaasv2.drivers.bigip.barbican_cert.BarbicanCertManager"
+f5_openstack_agent_auth_version : "v3"
+f5_openstack_agent_os_auth_url : "http://localhost:5000/v3"
+f5_openstack_agent_os_username : "admin"
+f5_openstack_agent_os_password : "changeme"
+f5_openstack_agent_os_user_domain_name : "default"
+f5_openstack_agent_os_project_name : "admin"
+f5_openstack_agent_os_project_domain_name : "default"
+f5_openstack_agent_f5_parent_ssl_profile : "clientssl"
+
 #####################
 # VMware support
 ######################
